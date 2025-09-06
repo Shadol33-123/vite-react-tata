@@ -6,7 +6,9 @@ import LessonsPage from './pages/LessonsPage'
 import LessonDetail from './pages/LessonDetail'
 import Community from './pages/Community'
 import Ranking from './pages/Ranking'
-
+import NivelBasico from "./pages/NivelBasico";
+import NivelMedio from "./pages/NivelMedio";
+import NivelAvanzado from "./pages/NivelAvanzado";
 
 export default function App() {
   return (
@@ -19,6 +21,9 @@ export default function App() {
           <Route path="/leccion/:id" element={<LessonDetail />} />
           <Route path="/comunidad" element={<Community />} />
           <Route path="/ranking" element={<Ranking />} />
+          <Route path="/leccion/basico" element={<NivelBasico />} />
+          <Route path="/leccion/medio" element={<NivelMedio />} />
+          <Route path="/leccion/avanzado" element={<NivelAvanzado />} />
           <Route path="*" element={<Home />} />
           
         </Routes>

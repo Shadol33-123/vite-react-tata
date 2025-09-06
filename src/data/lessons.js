@@ -1,5 +1,23 @@
 const lessons = [
   {
+    id: "Nivel-Básico",
+    title: "Nivel Básico",
+    level: "Fácil",
+    desc: "Aprende los conceptos esenciales de informática."
+  },
+  {
+    id: "Nivel-Medio",
+    title: "Nivel Medio",
+    level: "Medio",
+    desc: "Mejora tus habilidades con nuevas funciones."
+  },
+  {
+    id: "Nivel-Avanzado",
+    title: "Nivel Avanzado",
+    level: "Difícil",
+    desc: "Domina el uso de la tecnología con trucos avanzados."
+  },
+  {
     id: "whatsapp-basico",
     title: "WhatsApp básico",
     level: "Fácil",
