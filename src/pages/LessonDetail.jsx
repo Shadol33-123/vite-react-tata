@@ -1,22 +1,62 @@
 import { useParams } from "react-router-dom";
+import { useMemo } from "react";
 import lessons from "../data/lessons";
-
-// Importamos los juegos
 import ClickTrainer from "../game/ClickTrainer";
 import CaptchaTrainer from "../game/CaptchaTrainer";
+
+// Convierte cualquier URL de YouTube a embed con autoplay activado
+function toYTEmbedAutoplay(url) {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    const host = u.hostname;
+    let id = "";
+
+    if (host.includes("youtu.be")) {
+      id = u.pathname.slice(1);
+    } else if (host.includes("youtube.com")) {
+      if (u.pathname.startsWith("/watch")) {
+        id = u.searchParams.get("v") || "";
+      } else if (u.pathname.startsWith("/shorts/")) {
+        id = u.pathname.split("/")[2] || "";
+      } else if (u.pathname.startsWith("/embed/")) {
+        id = u.pathname.split("/")[2] || "";
+      }
+    }
+
+    if (!id) return url;
+
+    const base = `https://www.youtube-nocookie.com/embed/${id}`;
+    const params = new URLSearchParams({
+      autoplay: "1",
+      mute: "0",
+      playsinline: "1",
+      modestbranding: "1",
+      rel: "0",
+    });
+
+    return `${base}?${params.toString()}`;
+  } catch {
+    return url;
+  }
+}
 
 export default function LessonDetail() {
   const { id } = useParams();
 
-  // Combinamos todas las lecciones en un solo array
+  // Unificamos todas las lecciones
   const allLessons = [
     ...lessons.basico,
     ...lessons.medio,
-    ...lessons.avanzado
+    ...lessons.avanzado,
   ];
 
-  // Buscamos la lección
   const lesson = allLessons.find((item) => item.id === id);
+
+  // 🔹 Usamos useMemo SIEMPRE, sin condicional
+  const embedUrl = useMemo(() => {
+    return lesson && lesson.videoUrl ? toYTEmbedAutoplay(lesson.videoUrl) : "";
+  }, [lesson]);
 
   if (!lesson) {
     return (
@@ -34,22 +74,37 @@ export default function LessonDetail() {
       <h1 className="section-title mb-4">{lesson.title}</h1>
       <p className="text-gray-700 mb-6">{lesson.desc}</p>
 
-      {/* Si la lección es un juego */}
+      {/* Juegos */}
       {lesson.type === "game" && lesson.id === "click-trainer" && <ClickTrainer />}
       {lesson.type === "game" && lesson.id === "captcha-practice" && <CaptchaTrainer />}
 
-      {/* Si la lección es un video */}
+      {/* Video con autoplay */}
       {lesson.type === "video" && lesson.videoUrl && (
-        <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
-          <iframe
-            src={lesson.videoUrl}
-            title={lesson.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          ></iframe>
-        </div>
+        <>
+          <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+            <iframe
+              src={embedUrl}
+              title={lesson.title}
+              frameBorder="0"
+              className="w-full h-full"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+
+          <div className="mt-3 text-sm text-gray-500">
+            Si no se reproduce automáticamente,{" "}
+            <a
+              href={lesson.videoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-600 underline"
+            >
+              ábrelo en YouTube
+            </a>.
+          </div>
+        </>
       )}
 
       {/* Si no hay video */}

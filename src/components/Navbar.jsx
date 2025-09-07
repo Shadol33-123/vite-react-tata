@@ -17,7 +17,7 @@ export default function Navbar() {
           <span className="w-10 h-10 bg-lime-400 text-black font-extrabold rounded-xl grid place-items-center shadow-soft group-hover:scale-105 transition">
             CM
           </span>
-          <span className="text-2xl font-bold text-brand">Conect! Mayor</span>
+          <span className="text-2xl font-bold text-brand">Connect! Mayor</span>
         </Link>
 
         {/* Navegación */}

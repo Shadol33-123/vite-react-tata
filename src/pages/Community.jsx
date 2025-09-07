@@ -63,7 +63,7 @@ export default function Community() {
 
             {/* Chat */}
             <div className="card p-4 mt-6 shadow-inner border">
-              <h3 className="sub-title mb-3">Chat en vivo</h3>
+              <h3 className="sub-title mb-3">Chat de apoyo</h3>
               <div className="h-48 overflow-y-auto space-y-3 bg-gray-50 rounded-lg p-3 border">
                 {messages.length === 0 ? (
                   <p className="text-gray-500 text-center">No hay mensajes aún. ¡Sé el primero en saludar! 👋</p>

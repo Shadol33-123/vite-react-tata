@@ -10,9 +10,9 @@ export default function Home() {
 
       {/* SECCIÓN DE BENEFICIOS */}
       <section className="container-x py-16">
-        <h2 className="section-title text-center">¿Por qué Conect! Mayor?</h2>
+        <h2 className="section-title text-center">¿Por qué Connect! Mayor?</h2>
         <p className="text-center text-gray-600 max-w-2xl mx-auto mt-3 mb-10">
-          Conect! Mayor es una plataforma diseñada para enseñar tecnología de forma fácil, práctica y divertida.
+          Connect! Mayor es una plataforma diseñada para enseñar tecnología de forma fácil, práctica y divertida.
           Nuestros cursos están pensados para adultos mayores y principiantes que quieren aprender sin enredos.
         </p>
         <div className="grid md:grid-cols-3 gap-6">

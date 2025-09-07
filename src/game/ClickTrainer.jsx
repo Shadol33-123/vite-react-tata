@@ -91,7 +91,7 @@ export default function ClickTrainer() {
           Click Trainer: Red & Blue
         </h1>
         <p className="text-gray-600 mb-4">
-          🔵 AZUL = <b>Click Izquierdo</b> | 🎯 ROJO = <b>Click Derecho</b>
+          🔵 AZUL = <b>Click Izquierdo</b> | 🔴 ROJO = <b>Click Derecho</b>
         </p>
         <p className="text-lg font-semibold mb-4">
           Tiempo restante:{" "}

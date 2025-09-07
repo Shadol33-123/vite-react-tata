@@ -34,7 +34,7 @@ const lessons = {
       id: "seguridad",
       title: "Seguridad",
       desc: "Detectar estafas y proteger tus cuentas.",
-      videoUrl: "",
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
       type: "video"
     },
     {
