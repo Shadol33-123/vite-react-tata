@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import heroImg from "../assets/hero-image.png";
-import clickIzqGif from "../assets/click-izquierdo.png";
-import clickDerGif from "../assets/click-derecho.png";
+import clickIzqGif from "../assets/click-izquierdo.gif";
+import clickDerGif from "../assets/click-derecho.gif";
 
 export default function Hero() {
   const [step, setStep] = useState(0);

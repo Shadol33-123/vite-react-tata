@@ -9,6 +9,7 @@ import Ranking from "./pages/Ranking";
 
 // Importar las nuevas páginas
 import NivelBasico from "./pages/NivelBasico";
+import NivelBasicoCaptcha from "./pages/NivelBasicoCaptcha";
 import NivelMedio from "./pages/NivelMedio";
 import NivelAvanzado from "./pages/NivelAvanzado";
 
@@ -23,6 +24,7 @@ export default function App() {
 
           {/* Rutas para las nuevas lecciones */}
           <Route path="/leccion/Nivel-Básico" element={<NivelBasico />} />
+          <Route path="/leccion/Nivel-Básico/captcha" element={<NivelBasicoCaptcha />} />
           <Route path="/leccion/Nivel-Medio" element={<NivelMedio />} />
           <Route path="/leccion/Nivel-Avanzado" element={<NivelAvanzado />} />
 
