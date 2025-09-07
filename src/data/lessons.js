@@ -1,71 +1,50 @@
-const lessons = [
-  {
-    id: "Nivel-Básico",
-    title: "Nivel Básico",
-    level: "Fácil",
-    desc: "Aprende los conceptos esenciales de informática."
-  },
-  {
-    id: "Nivel-Medio",
-    title: "Nivel Medio",
-    level: "Medio",
-    desc: "Mejora tus habilidades con nuevas funciones."
-  },
-  {
-    id: "Nivel-Avanzado",
-    title: "Nivel Avanzado",
-    level: "Difícil",
-    desc: "Domina el uso de la tecnología con trucos avanzados."
-  },
-  {
-    id: "whatsapp-basico",
-    title: "WhatsApp básico",
-    level: "Fácil",
-    desc: "Enviar mensajes, notas de voz y fotos.",
-    content: [
-      "Abre WhatsApp y toca el botón de nuevo mensaje.",
-      "Escribe el nombre del contacto y selecciona.",
-      "Escribe tu mensaje y presiona enviar.",
-      "Para notas de voz, mantén presionado el micrófono."
-    ],
-    videoUrl: "https://www.youtube.com/embed/G6o1Y6N0_demo"
-  },
-  {
-    id: "videollamadas",
-    title: "Videollamadas",
-    level: "Fácil",
-    desc: "Llamadas por WhatsApp y Zoom.",
-    content: [
-      "Abre la conversación y toca el ícono de cámara.",
-      "Permite el acceso a cámara y micrófono.",
-      "Para Zoom, crea o únete con un código o enlace."
-    ],
-    videoUrl: "https://www.youtube.com/embed/2Z_demo_video"
-  },
-  {
-    id: "seguridad",
-    title: "Seguridad",
-    level: "Medio",
-    desc: "Detectar estafas y proteger tus cuentas.",
-    content: [
-      "Nunca compartas códigos o contraseñas.",
-      "Activa la verificación en dos pasos.",
-      "Desconfía de enlaces y premios sospechosos."
-    ],
-    videoUrl: ""
-  },
-  {
-    id: "pagos-digitales",
-    title: "Pagos digitales",
-    level: "Medio",
-    desc: "Transferencias y pagos sin filas.",
-    content: [
-      "Usa apps oficiales del banco.",
-      "Confirma siempre el destinatario antes de pagar.",
-      "Evita hacer pagos conectado a WiFi público."
-    ],
-    videoUrl: ""
-  }
-]
+const lessons = {
+  basico: [
+    {
+      id: "click-trainer",
+      title: "Click Trainer: Red & Blue",
+      desc: "Aprende a diferenciar entre clic izquierdo y derecho con este juego interactivo.",
+      type: "game" // 👈 Marcamos que es un juego
+    },
+    {
+      id: "captcha-practice",
+      title: "Captcha Trainer",
+      desc: "Practica escribiendo correctamente letras y números.",
+      type: "game" // 👈 Otro juego
+    }
+  ],
+  medio: [
+    {
+      id: "whatsapp-basico",
+      title: "WhatsApp básico",
+      desc: "Enviar mensajes, notas de voz y fotos.",
+      videoUrl: "https://www.youtube.com/embed/G6o1Y6N0_demo",
+      type: "video"
+    },
+    {
+      id: "videollamadas",
+      title: "Videollamadas",
+      desc: "Llamadas por WhatsApp y Zoom.",
+      videoUrl: "https://www.youtube.com/embed/2Z_demo_video",
+      type: "video"
+    }
+  ],
+  avanzado: [
+    {
+      id: "seguridad",
+      title: "Seguridad",
+      desc: "Detectar estafas y proteger tus cuentas.",
+      videoUrl: "",
+      type: "video"
+    },
+    {
+      id: "pagos-digitales",
+      title: "Pagos digitales",
+      desc: "Transferencias y pagos sin filas.",
+      videoUrl: "",
+      type: "video"
+    }
+  ]
+};
 
-export default lessons
+export default lessons;

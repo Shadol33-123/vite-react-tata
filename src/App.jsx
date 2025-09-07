@@ -2,16 +2,13 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import LessonsPage from "./pages/LessonsPage";
+import Lecciones from "./pages/Lecciones";
+import Lessons from "./components/Lessons";
 import LessonDetail from "./pages/LessonDetail";
 import Community from "./pages/Community";
 import Ranking from "./pages/Ranking";
-
-// Importar las nuevas páginas
-import NivelBasico from "./pages/NivelBasico";
-import NivelBasicoCaptcha from "./pages/NivelBasicoCaptcha";
-import NivelMedio from "./pages/NivelMedio";
-import NivelAvanzado from "./pages/NivelAvanzado";
+import ClickTrainer from "./game/ClickTrainer";
+import CaptchaTrainer from "./game/CaptchaTrainer";
 
 export default function App() {
   return (
@@ -20,17 +17,11 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/lecciones" element={<LessonsPage />} />
-
-          {/* Rutas para las nuevas lecciones */}
-          <Route path="/leccion/Nivel-Básico" element={<NivelBasico />} />
-          <Route path="/leccion/Nivel-Básico/captcha" element={<NivelBasicoCaptcha />} />
-          <Route path="/leccion/Nivel-Medio" element={<NivelMedio />} />
-          <Route path="/leccion/Nivel-Avanzado" element={<NivelAvanzado />} />
-
-          {/* Rutas dinámicas para otras lecciones */}
+          <Route path="/lecciones" element={<Lecciones />} />
+          <Route path="/lecciones/:nivel" element={<Lessons />} />
           <Route path="/leccion/:id" element={<LessonDetail />} />
-
+          <Route path="/leccion/Nivel-Basico/click-trainer" element={<ClickTrainer />} />
+          <Route path="/leccion/Nivel-Basico/captcha" element={<CaptchaTrainer />} />
           <Route path="/comunidad" element={<Community />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="*" element={<Home />} />

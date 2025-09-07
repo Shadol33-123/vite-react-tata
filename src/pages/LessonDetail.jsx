@@ -1,57 +1,63 @@
-import { useParams, Link } from 'react-router-dom'
-import lessons from '../data/lessons'
-import { isComplete, toggleComplete } from '../utils/storage'
-import { useMemo, useState } from 'react'
+import { useParams } from "react-router-dom";
+import lessons from "../data/lessons";
+
+// Importamos los juegos
+import ClickTrainer from "../game/ClickTrainer";
+import CaptchaTrainer from "../game/CaptchaTrainer";
 
 export default function LessonDetail() {
-  const { id } = useParams()
-  const lesson = useMemo(() => lessons.find(l => l.id === id), [id])
-  const [completed, setCompleted] = useState(isComplete(id))
+  const { id } = useParams();
+
+  // Combinamos todas las lecciones en un solo array
+  const allLessons = [
+    ...lessons.basico,
+    ...lessons.medio,
+    ...lessons.avanzado
+  ];
+
+  // Buscamos la lección
+  const lesson = allLessons.find((item) => item.id === id);
 
   if (!lesson) {
     return (
-      <section className="container-x py-10">
-        <h1 className="section-title mb-4">Lección no encontrada</h1>
-        <Link to="/lecciones" className="btn btn-primary">Volver a lecciones</Link>
-      </section>
-    )
+      <div className="container-x py-16">
+        <h1 className="text-2xl font-bold text-red-600">Lección no encontrada</h1>
+        <p className="mt-3 text-gray-600">
+          La lección solicitada no existe o fue eliminada.
+        </p>
+      </div>
+    );
   }
 
-  const handleToggle = () => setCompleted(toggleComplete(lesson.id))
-
   return (
-    <section className="container-x py-10">
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        <h1 className="section-title">{lesson.title}</h1>
-        <span className="pill">{lesson.level}</span>
-      </div>
+    <section className="container-x py-16">
+      <h1 className="section-title mb-4">{lesson.title}</h1>
+      <p className="text-gray-700 mb-6">{lesson.desc}</p>
 
-      <p className="mt-2 text-gray-600">{lesson.desc}</p>
+      {/* Si la lección es un juego */}
+      {lesson.type === "game" && lesson.id === "click-trainer" && <ClickTrainer />}
+      {lesson.type === "game" && lesson.id === "captcha-practice" && <CaptchaTrainer />}
 
-      {lesson.videoUrl && (
-        <div className="mt-6 aspect-video rounded-3xl overflow-hidden shadow-soft">
+      {/* Si la lección es un video */}
+      {lesson.type === "video" && lesson.videoUrl && (
+        <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
           <iframe
-            className="w-full h-full"
             src={lesson.videoUrl}
             title={lesson.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            className="w-full h-full"
           ></iframe>
         </div>
       )}
 
-      <ol className="mt-6 space-y-3 list-decimal list-inside">
-        {lesson.content.map((step, idx) => (
-          <li key={idx} className="card p-4">{step}</li>
-        ))}
-      </ol>
-
-      <div className="mt-6 flex gap-3">
-        <button onClick={handleToggle} className="btn btn-primary">
-          {completed ? 'Marcar como pendiente' : 'Marcar como completada'}
-        </button>
-        <Link to="/lecciones" className="btn btn-ghost">Volver</Link>
-      </div>
+      {/* Si no hay video */}
+      {lesson.type === "video" && !lesson.videoUrl && (
+        <p className="text-gray-500 italic">
+          Esta lección no tiene un video disponible.
+        </p>
+      )}
     </section>
-  )
+  );
 }
