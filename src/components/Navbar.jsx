@@ -12,8 +12,8 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="container-x py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group" aria-label="Ir al inicio">
-          <span className="w-10 h-10 bg-lime-400 text-black font-extrabold rounded-xl grid place-items-center shadow-soft group-hover:scale-105 transition">AT</span>
-          <span className="text-2xl font-bold text-brand">Ayuda Tata</span>
+          <span className="w-10 h-10 bg-lime-400 text-black font-extrabold rounded-xl grid place-items-center shadow-soft group-hover:scale-105 transition">CM</span>
+          <span className="text-2xl font-bold text-brand">Conect! Mayor</span>
         </Link>
         <div className="hidden md:flex items-center gap-1">
           {items.map((it) => (
