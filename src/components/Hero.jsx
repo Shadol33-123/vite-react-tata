@@ -42,7 +42,7 @@ export default function Hero() {
     setFails((prev) => {
       const updated = prev + 1;
       if (updated >= 3) {
-        navigate("/leccion/basico");
+        navigate("/leccion/Nivel-Básico");
       }
       return updated;
     });
