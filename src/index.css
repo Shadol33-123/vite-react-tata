@@ -3,19 +3,66 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; }
-  body { @apply bg-gray-50 text-gray-900 antialiased; }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
 }
 
+/* === COMPONENTES PERSONALIZADOS === */
 @layer components {
-  .btn {@apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold shadow-soft transition active:scale-95;}
-  .btn-primary {@apply text-white bg-gradient-to-r from-amber-400 to-orange-500 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-amber-300;}
-  .btn-ghost {@apply text-amber-700 border border-amber-300 bg-white hover:bg-amber-50;}
-  .card {@apply bg-white rounded-brand shadow-soft hover:shadow-xl transition;}
-  .pill {@apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold border border-gray-200;}
-  .section-title {@apply text-3xl md:text-4xl font-extrabold text-brand;}
-  .sub-title {@apply text-xl md:text-2xl font-bold text-brand;}
-  .container-x {@apply max-w-6xl mx-auto px-4;}
-  .nav-link {@apply px-3 py-2 rounded-full text-sm font-medium text-gray-700 hover:text-brand hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-300;}
-  .nav-active {@apply text-brand bg-amber-50;}
+  /* Botón base */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold shadow-soft transition active:scale-95;
+  }
+
+  /* Botón principal */
+  .btn-primary {
+    @apply text-white bg-gradient-to-r from-[#3f5e38] to-[#6d9366] hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-[#6d9366];
+  }
+
+  /* Botón secundario */
+  .btn-ghost {
+    @apply text-[#3f5e38] border border-[#6d9366] bg-white hover:bg-[#f1f8f1] focus:outline-none focus:ring-2 focus:ring-[#6d9366];
+  }
+
+  /* Tarjetas */
+  .card {
+    @apply bg-white rounded-brand shadow-soft hover:shadow-xl transition;
+  }
+
+  /* Etiquetas / insignias */
+  .pill {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold border border-gray-200 bg-[#f1f8f1] text-[#3f5e38];
+  }
+
+  /* Títulos principales */
+  .section-title {
+    @apply text-3xl md:text-4xl font-extrabold;
+    color: #3f5e38;
+  }
+
+  /* Subtítulos */
+  .sub-title {
+    @apply text-xl md:text-2xl font-bold;
+    color: #6d9366;
+  }
+
+  /* Contenedor general */
+  .container-x {
+    @apply max-w-6xl mx-auto px-4;
+  }
+
+  /* Links de la barra de navegación */
+  .nav-link {
+    @apply px-3 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-[#eaf5ea] hover:text-[#3f5e38] focus:outline-none focus:ring-2 focus:ring-[#6d9366];
+  }
+
+  /* Link activo en la barra */
+  .nav-active {
+    color: #3f5e38;
+    background-color: #eaf5ea;
+  }
 }

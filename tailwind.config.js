@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         brand: { DEFAULT: "#800000", light: "#a32323", dark: "#5f0000" },
-        accent: { DEFAULT: "#f59e0b", soft: "#fffbeb" }
+        accent: { DEFAULT: "#3f5e38", soft: "#fffbeb" }
       },
       boxShadow: {
         soft: "0 10px 30px rgba(0,0,0,.08)",
