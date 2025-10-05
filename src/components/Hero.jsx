@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import heroImg from "../assets/hero-image.png";
 import clickIzqGif from "../assets/click-izquierdo.gif";
 import clickDerGif from "../assets/click-derecho.gif";
@@ -29,13 +31,15 @@ export default function Hero() {
 
   const handleNameSubmit = (e) => {
     e.preventDefault();
+      
     if (step === 3 && name.trim() !== "" && name === name.toLowerCase()) {
-      alert(`¡Felicidades ${name}! 🎉 Has completado el test.`);
+      toast.success(`🎉 ¡Felicidades ${name}! Has completado el test.`);
       setStep(0);
       setName("");
     } else {
+      toast.error("⚠️ Tu nombre debe estar en minúsculas y no vacío.");
       handleFail();
-    }
+     }
   };
 
   const handleFail = () => {
@@ -109,7 +113,7 @@ export default function Hero() {
               {/* Paso 1 */}
               {step === 1 && (
                 <p className="flex items-center gap-2">
-                  Paso 1: Haz <b>clic izquierdo</b> en el botón rojo 👇
+                  Paso 1: Haz <b>click izquierdo</b> en el botón 
                   <img
                     src={clickIzqGif}
                     alt="Click izquierdo"
@@ -121,7 +125,7 @@ export default function Hero() {
               {/* Paso 2 */}
               {step === 2 && (
                 <p className="flex items-center gap-2">
-                  Paso 2: Haz <b>clic derecho</b> en el mismo botón 👇
+                  Paso 2: Haz <b>click derecho</b> en el mismo botón 👇
                   <img
                     src={clickDerGif}
                     alt="Click derecho"
@@ -145,9 +149,9 @@ export default function Hero() {
                 <button
                   onClick={handleLeftClick}
                   onContextMenu={handleRightClick}
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-10 py-5 rounded-lg mt-4 shadow-xl transition transform hover:scale-110 text-lg"
+                  className="btn btn-primary w-full py-3 text-lg font-semibold"
                 >
-                  Botón Rojo
+                  !PRESIONE AQUI¡
                 </button>
               )}
 
@@ -166,7 +170,7 @@ export default function Hero() {
                   />
                   <button
                     type="submit"
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg shadow-lg transition transform hover:scale-105 w-full max-w-sm"
+                    className="btn btn-primary w-full py-3 text-lg font-semibold"
                   >
                     Enviar
                   </button>

@@ -13,6 +13,7 @@
 
 /* === COMPONENTES PERSONALIZADOS === */
 @layer components {
+  
   /* Botón base */
   .btn {
     @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full font-semibold shadow-soft transition active:scale-95;
