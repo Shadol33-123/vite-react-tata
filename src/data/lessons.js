@@ -11,6 +11,12 @@ const lessons = {
       title: "Captcha Trainer",
       desc: "Practica escribiendo correctamente letras y números.",
       type: "game" // 👈 Otro juego
+    },
+    {
+      id: "icon-finder",
+      title: "Encuentra el ícono",
+      desc: "Reconoce íconos comunes de aplicaciones.",
+      type: "game"
     }
   ],
   medio: [
@@ -27,7 +33,14 @@ const lessons = {
       desc: "Llamadas por WhatsApp y Zoom.",
       videoUrl: "https://www.youtube.com/embed/2Z_demo_video",
       type: "video"
+    },
+    {
+      id: "email-trainer",
+      title: "Escribe tu correo",
+      desc: "Practica escribir correctamente direcciones de correo electrónico.",
+      type: "game"
     }
+    
   ],
   avanzado: [
     {

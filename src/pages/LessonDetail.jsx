@@ -3,6 +3,8 @@ import { useMemo } from "react";
 import lessons from "../data/lessons";
 import ClickTrainer from "../game/ClickTrainer";
 import CaptchaTrainer from "../game/CaptchaTrainer";
+import IconFinder from "../game/IconFinder";
+import EmailTrainer from "../game/EmailTrainer";
 
 // Convierte cualquier URL de YouTube a embed con autoplay activado
 function toYTEmbedAutoplay(url) {
@@ -77,6 +79,8 @@ export default function LessonDetail() {
       {/* Juegos */}
       {lesson.type === "game" && lesson.id === "click-trainer" && <ClickTrainer />}
       {lesson.type === "game" && lesson.id === "captcha-practice" && <CaptchaTrainer />}
+      {lesson.type === "game" && lesson.id === "icon-finder" && <IconFinder />}
+      {lesson.type === "game" && lesson.id === "email-trainer" && <EmailTrainer />}
 
       {/* Video con autoplay */}
       {lesson.type === "video" && lesson.videoUrl && (

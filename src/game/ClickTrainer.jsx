@@ -136,7 +136,7 @@ export default function ClickTrainer() {
         {/* Botón para pasar al CAPTCHA */}
         <div className="mt-6">
           <button
-            onClick={() => navigate("/leccion/Nivel-Basico/captcha")}
+            onClick={() => navigate("/leccion/nivel-basico/captcha")}
             disabled={score < 15}
             className={`btn btn-primary w-full max-w-xs text-lg transition-all ${
               score < 15 ? "opacity-50 cursor-not-allowed" : ""

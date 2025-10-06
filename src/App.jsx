@@ -9,6 +9,8 @@ import Community from "./pages/Community";
 import Ranking from "./pages/Ranking";
 import ClickTrainer from "./game/ClickTrainer";
 import CaptchaTrainer from "./game/CaptchaTrainer";
+import IconFinder from "./game/IconFinder";
+import EmailTrainer from "./game/EmailTrainer";
 
 export default function App() {
   return (
@@ -20,8 +22,10 @@ export default function App() {
           <Route path="/lecciones" element={<Lecciones />} />
           <Route path="/lecciones/:nivel" element={<Lessons />} />
           <Route path="/leccion/:id" element={<LessonDetail />} />
-          <Route path="/leccion/Nivel-Basico/click-trainer" element={<ClickTrainer />} />
-          <Route path="/leccion/Nivel-Basico/captcha" element={<CaptchaTrainer />} />
+          <Route path="/leccion/nivel-basico/click-trainer" element={<ClickTrainer />} />
+          <Route path="/leccion/nivel-basico/captcha" element={<CaptchaTrainer />} />
+          <Route path="/leccion/nivel-basico/icon-finder" element={<IconFinder />} />
+          <Route path="/leccion/nivel-medio/email-trainer" element={<EmailTrainer />} />
           <Route path="/comunidad" element={<Community />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="*" element={<Home />} />
