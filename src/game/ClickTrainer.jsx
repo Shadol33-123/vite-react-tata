@@ -1,140 +1,155 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ClickTrainer() {
   const [score, setScore] = useState(0);
-  const [combo, setCombo] = useState(0);
-  const [accuracy, setAccuracy] = useState(100);
-  const [totalClicks, setTotalClicks] = useState(0);
-  const [targetColor, setTargetColor] = useState(null);
-  const [position, setPosition] = useState({ top: "50%", left: "50%" });
-  const [feedback, setFeedback] = useState("");
-  const [gameOver, setGameOver] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(30);
-
-  const timerRef = useRef(null);
+  const [precision, setPrecision] = useState(100);
+  const [time, setTime] = useState(30);
+  const [color, setColor] = useState("red");
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [clicks, setClicks] = useState(0);
+  const [hits, setHits] = useState(0);
+  const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState("");
+  const [running, setRunning] = useState(true);
+  const [finished, setFinished] = useState(false);
   const navigate = useNavigate();
+  const areaRef = useRef(null);
 
-  // Generar nuevo objetivo
-  const generateTarget = useCallback(() => {
-    const colors = ["red", "blue"];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    setTargetColor(randomColor);
-    setPosition({
-      top: `${Math.random() * 70 + 10}%`,
-      left: `${Math.random() * 70 + 10}%`,
-    });
-  }, []);
-
-  // Iniciar juego
-  const startGame = useCallback(() => {
-    setScore(0);
-    setCombo(0);
-    setAccuracy(100);
-    setTotalClicks(0);
-    setGameOver(false);
-    setTimeLeft(30);
-    generateTarget();
-    startTimer();
-  }, [generateTarget]);
-
-  // Control del temporizador
-  const startTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          setGameOver(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
-  // Ejecutar al cargar
   useEffect(() => {
-    startGame();
-    return () => clearInterval(timerRef.current);
-  }, [startGame]);
+    const interval = setInterval(() => {
+      if (running && time > 0) {
+        setTime((t) => t - 1);
+      } else if (time <= 0 && running) {
+        setRunning(false);
+        setFinished(true);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [running, time]);
 
-  // Manejo de clics
+  const randomPos = () => ({
+    x: Math.random() * 80 + 10, // margen seguro
+    y: Math.random() * 70 + 15,
+  });
+
+  const randomColor = () => (Math.random() > 0.5 ? "red" : "blue");
+
   const handleClick = (e) => {
-    e.preventDefault();
-    if (gameOver) return;
+    if (!running) return;
+    setClicks((c) => c + 1);
 
-    setTotalClicks((prev) => prev + 1);
+    const isLeft = e.button === 0;
+    const isRight = e.button === 2;
     const correct =
-      (e.type === "click" && targetColor === "blue") ||
-      (e.type === "contextmenu" && targetColor === "red");
+      (color === "blue" && isLeft) || (color === "red" && isRight);
 
     if (correct) {
-      setScore((prev) => prev + 1);
-      setCombo((prev) => prev + 1);
-      setFeedback("Perfect!");
-      setTimeout(() => setFeedback(""), 500);
-      generateTarget();
+      setScore((s) => s + 1);
+      setHits((h) => h + 1);
+      setMessage("✅ ¡Bien hecho!");
+      setMessageColor("text-green-600");
+      setColor(randomColor());
+      setPos(randomPos());
     } else {
-      setCombo(0);
-      setFeedback("Intenta de nuevo");
-      setTimeout(() => setFeedback(""), 700);
+      setMessage("❌ Error, intenta de nuevo");
+      setMessageColor("text-red-600");
     }
 
-    setAccuracy((((correct ? score + 1 : score) / (totalClicks + 1)) * 100).toFixed(1));
+    setPrecision(((hits / (clicks + 1)) * 100).toFixed(0));
+  };
+
+  const handleContextMenu = (e) => e.preventDefault();
+
+  const restart = () => {
+    setScore(0);
+    setPrecision(100);
+    setTime(30);
+    setClicks(0);
+    setHits(0);
+    setRunning(true);
+    setFinished(false);
+    setMessage("");
+    setColor(randomColor());
+    setPos({ x: 50, y: 50 });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-2xl text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
+    <div
+      className="flex flex-col items-center justify-center h-screen w-screen bg-gray-50 overflow-hidden"
+      onContextMenu={handleContextMenu}
+    >
+      {/* Header */}
+      <div className="text-center mb-2">
+        <h1 className="text-3xl font-bold text-gray-800">
           Click Trainer: Red & Blue
         </h1>
-        <p className="text-gray-600 mb-4">
-          🔵 AZUL = <b>Click Izquierdo</b> | 🔴 ROJO = <b>Click Derecho</b>
+        <p className="text-gray-600 mt-1">
+          🔵 <b>AZUL = Click Izquierdo</b> | 🔴 <b>ROJO = Click Derecho</b>
         </p>
-        <p className="text-lg font-semibold mb-4">
+        <p className="font-semibold mt-1">
           Tiempo restante:{" "}
-          <span className="text-red-500 font-bold">{timeLeft}s</span>
+          <span className="text-red-500 font-bold">{time}s</span>
         </p>
+      </div>
 
-        {!gameOver ? (
-          <div className="relative w-full h-[400px] border rounded-lg bg-gray-100 flex items-center justify-center">
-            <div
-              onClick={handleClick}
-              onContextMenu={handleClick}
-              style={{
-                position: "absolute",
-                top: position.top,
-                left: position.left,
-                width: "60px",
-                height: "60px",
-                backgroundColor: targetColor,
-                borderRadius: "50%",
-                cursor: "pointer",
-              }}
-            />
-            {feedback && (
-              <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-bold text-green-600">
-                {feedback}
-              </p>
-            )}
-          </div>
-        ) : (
-          <p className="mt-6 text-lg text-gray-600">
-            🎮 Juego terminado. Tu puntaje:{" "}
-            <span className="text-blue-600 font-bold">{score}</span>
-          </p>
+      {/* Área de juego fullscreen */}
+      <div
+        ref={areaRef}
+        className="relative bg-gray-100 rounded-xl border border-gray-200"
+        style={{
+          width: "85%",
+          height: "65vh",
+          maxWidth: "1200px",
+        }}
+        onMouseDown={handleClick}
+      >
+        {running && (
+          <div
+            style={{
+              position: "absolute",
+              top: `${pos.y}%`,
+              left: `${pos.x}%`,
+              transform: "translate(-50%, -50%)",
+              width: "80px",
+              height: "80px",
+              borderRadius: "50%",
+              backgroundColor: color,
+              cursor: "pointer",
+              boxShadow: "0 0 12px rgba(0,0,0,0.2)",
+              transition: "all 0.2s ease",
+            }}
+          ></div>
         )}
+      </div>
 
-        <div className="mt-6 text-lg">
-          <p>Puntos: <span className="font-bold">{score}</span> / 15</p>
-          <p>Precisión: <span className="font-bold">{accuracy}%</span></p>
-          <p>Combo: <span className="font-bold">{combo}</span></p>
-        </div>
+      {/* Mensajes dinámicos */}
+      {message && (
+        <p className={`mt-3 text-lg font-semibold ${messageColor}`}>
+          {message}
+        </p>
+      )}
 
-        {/* Botón para pasar al CAPTCHA */}
-        <div className="mt-6">
+      {/* Puntajes */}
+      <div className="mt-4 text-gray-700 font-medium">
+        <p>
+          Puntos: <b>{score}</b> / 15
+        </p>
+        <p>Precisión: {precision}%</p>
+      </div>
+
+      {/* Final del juego */}
+      {finished && (
+        <div className="mt-6 flex flex-col items-center gap-3">
+          <p className="text-green-600 font-semibold">
+            ¡Tiempo terminado! 🎉
+          </p>
+          <button
+            onClick={restart}
+            className="btn btn-primary text-lg w-full max-w-xs"
+          >
+            Reiniciar
+          </button>
           <button
             onClick={() => navigate("/leccion/nivel-basico/captcha")}
             disabled={score < 15}
@@ -142,10 +157,12 @@ export default function ClickTrainer() {
               score < 15 ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {score < 15 ? "Alcanza 15 puntos para continuar" : "Siguiente"}
+            {score < 15
+              ? "Alcanza 15 puntos para continuar"
+              : "Siguiente"}
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }

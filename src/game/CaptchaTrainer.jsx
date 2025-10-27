@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NivelBasicoCaptcha() {
   const [captcha, setCaptcha] = useState("");
   const [input, setInput] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [colorMensaje, setColorMensaje] = useState("");
+  const [completado, setCompletado] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     generarCaptcha();
   }, []);
 
   const generarCaptcha = () => {
-    const caracteres =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ñÑ";
+    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ñÑ";
     let codigo = "";
     for (let i = 0; i < 7; i++) {
-      codigo += caracteres.charAt(
-        Math.floor(Math.random() * caracteres.length)
-      );
+      codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
     setCaptcha(codigo);
   };
@@ -25,12 +25,14 @@ export default function NivelBasicoCaptcha() {
   const verificarCaptcha = (e) => {
     e.preventDefault();
     if (input === captcha) {
-      setMensaje("¡Correcto! 🎉 Has completado el nivel básico.");
+      setMensaje("✅ ¡Correcto! Has completado el nivel básico.");
       setColorMensaje("text-green-600");
+      setCompletado(true);
     } else {
-      setMensaje("Error ❌, inténtalo de nuevo");
+      setMensaje("❌ Error, inténtalo de nuevo.");
       setColorMensaje("text-red-600");
       generarCaptcha();
+      setCompletado(false);
     }
     setInput("");
   };
@@ -39,14 +41,13 @@ export default function NivelBasicoCaptcha() {
     generarCaptcha();
     setMensaje("");
     setInput("");
+    setCompletado(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-2xl text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          🧠 Verificación CAPTCHA
-        </h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">🧠 Verificación CAPTCHA</h1>
         <p className="text-gray-600 mb-6">
           Escribe el código exactamente como aparece para completar el nivel básico.
         </p>
@@ -84,6 +85,18 @@ export default function NivelBasicoCaptcha() {
           <p className={`mt-4 text-lg font-semibold ${colorMensaje}`}>
             {mensaje}
           </p>
+        )}
+
+        {/* Botón para pasar al Icon Finder */}
+        {completado && (
+          <div className="mt-6">
+            <button
+              onClick={() => navigate("/leccion/nivel-basico/icon-finder")}
+              className="btn btn-primary w-full max-w-xs text-lg transition-all"
+            >
+              Siguiente
+            </button>
+          </div>
         )}
       </div>
     </div>

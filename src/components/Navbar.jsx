@@ -1,5 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
-import { User } from 'lucide-react'; // Icono minimalista
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
   const items = [
@@ -41,10 +41,7 @@ export default function Navbar() {
           </Link>
 
           {/* Perfil */}
-          <div className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full shadow-sm cursor-pointer hover:bg-gray-200 transition">
-            <User size={20} className="text-gray-700" />
-            <span className="text-gray-700 font-medium text-sm">matias</span>
-          </div>
+          <UserMenu />
         </div>
       </div>
     </nav>

@@ -55,7 +55,6 @@ export default function LessonDetail() {
 
   const lesson = allLessons.find((item) => item.id === id);
 
-  // 🔹 Usamos useMemo SIEMPRE, sin condicional
   const embedUrl = useMemo(() => {
     return lesson && lesson.videoUrl ? toYTEmbedAutoplay(lesson.videoUrl) : "";
   }, [lesson]);
@@ -71,19 +70,25 @@ export default function LessonDetail() {
     );
   }
 
+  // 🎮 Si es un juego, mostrarlo en pantalla completa sin márgenes
+  if (lesson.type === "game") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        {lesson.id === "click-trainer" && <ClickTrainer />}
+        {lesson.id === "captcha-practice" && <CaptchaTrainer />}
+        {lesson.id === "icon-finder" && <IconFinder />}
+        {lesson.id === "email-trainer" && <EmailTrainer />}
+      </div>
+    );
+  }
+
+  // 🎥 Si es un video, mantener diseño estándar
   return (
     <section className="container-x py-16">
       <h1 className="section-title mb-4">{lesson.title}</h1>
       <p className="text-gray-700 mb-6">{lesson.desc}</p>
 
-      {/* Juegos */}
-      {lesson.type === "game" && lesson.id === "click-trainer" && <ClickTrainer />}
-      {lesson.type === "game" && lesson.id === "captcha-practice" && <CaptchaTrainer />}
-      {lesson.type === "game" && lesson.id === "icon-finder" && <IconFinder />}
-      {lesson.type === "game" && lesson.id === "email-trainer" && <EmailTrainer />}
-
-      {/* Video con autoplay */}
-      {lesson.type === "video" && lesson.videoUrl && (
+      {lesson.videoUrl ? (
         <>
           <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
             <iframe
@@ -96,7 +101,6 @@ export default function LessonDetail() {
               referrerPolicy="strict-origin-when-cross-origin"
             ></iframe>
           </div>
-
           <div className="mt-3 text-sm text-gray-500">
             Si no se reproduce automáticamente,{" "}
             <a
@@ -109,10 +113,7 @@ export default function LessonDetail() {
             </a>.
           </div>
         </>
-      )}
-
-      {/* Si no hay video */}
-      {lesson.type === "video" && !lesson.videoUrl && (
+      ) : (
         <p className="text-gray-500 italic">
           Esta lección no tiene un video disponible.
         </p>

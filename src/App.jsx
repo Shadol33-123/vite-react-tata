@@ -11,6 +11,8 @@ import ClickTrainer from "./game/ClickTrainer";
 import CaptchaTrainer from "./game/CaptchaTrainer";
 import IconFinder from "./game/IconFinder";
 import EmailTrainer from "./game/EmailTrainer";
+import FontSizeControl from "./components/FontSizeControl";
+
 
 export default function App() {
   return (
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
+      <FontSizeControl /> 
       <Footer />
     </div>
   );
